@@ -153,6 +153,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Passport\PassportServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class, // Added for Spatie Permissions
 
         /*
          * Application Service Providers...
