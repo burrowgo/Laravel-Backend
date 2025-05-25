@@ -123,4 +123,43 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Autoloaded Service Providers
+    |--------------------------------------------------------------------------
+    |
+    | The service providers listed here will be automatically loaded on the
+    | request to your application. Feel free to add your own services to
+    | this array to grant expanded functionality to your applications.
+    |
+    */
+
+    'providers' => [
+        /*
+         * Laravel Framework Service Providers...
+         */
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
+        Illuminate\Foundation\Providers\ArtisanServiceProvider::class, // Added for make:* commands
+        Illuminate\Foundation\Providers\ComposerServiceProvider::class, // Added for composer binding
+        Illuminate\Cache\CacheServiceProvider::class, // Added for cache binding
+        Illuminate\Database\DatabaseServiceProvider::class, // Added for db binding
+        Illuminate\Database\MigrationServiceProvider::class, // Added for make:migration
+        Illuminate\Queue\QueueServiceProvider::class, // Added for queue bindings
+        Illuminate\Hashing\HashServiceProvider::class, // Added for Hash facade
+        // Add other core providers if necessary, but Filesystem is key for make:model
+
+        /*
+         * Package Service Providers...
+         */
+        Laravel\Passport\PassportServiceProvider::class,
+
+        /*
+         * Application Service Providers...
+         */
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\RouteServiceProvider::class, // Usually present, but let's stick to what's needed
+    ],
+
 ];
