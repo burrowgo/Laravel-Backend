@@ -18,13 +18,19 @@ class RolesAndPermissionsSeeder extends Seeder
         $webPermCreateBooks = Permission::firstOrCreate(['name' => 'create books', 'guard_name' => 'web']);
         $webPermEditBooks = Permission::firstOrCreate(['name' => 'edit books', 'guard_name' => 'web']);
         $webPermDeleteBooks = Permission::firstOrCreate(['name' => 'delete books', 'guard_name' => 'web']);
-        // $webPermManageUsers = Permission::firstOrCreate(['name' => 'manage users', 'guard_name' => 'web']); // If User manages other Users
-        // $webPermManageRoles = Permission::firstOrCreate(['name' => 'manage roles', 'guard_name' => 'web']); // If User manages its own roles
-        // $webPermAssignRoles = Permission::firstOrCreate(['name' => 'assign roles', 'guard_name' => 'web']); // If User assigns roles
+        
+        // New WebContent permissions for 'web' guard
+        $webPermViewWebContent = Permission::firstOrCreate(['name' => 'view web_content', 'guard_name' => 'web']);
+        $webPermCreateWebContent = Permission::firstOrCreate(['name' => 'create web_content', 'guard_name' => 'web']);
+        $webPermEditWebContent = Permission::firstOrCreate(['name' => 'edit web_content', 'guard_name' => 'web']);
+        $webPermDeleteWebContent = Permission::firstOrCreate(['name' => 'delete web_content', 'guard_name' => 'web']);
 
         // Viewer Role (web guard)
         $viewerRole = Role::firstOrCreate(['name' => 'Viewer', 'guard_name' => 'web']);
-        $viewerRole->givePermissionTo([$webPermViewBooks]);
+        $viewerRole->givePermissionTo([
+            $webPermViewBooks,
+            $webPermViewWebContent, // Assign new permission
+        ]);
 
         // Editor Role (web guard)
         $editorRole = Role::firstOrCreate(['name' => 'Editor', 'guard_name' => 'web']);
@@ -33,10 +39,13 @@ class RolesAndPermissionsSeeder extends Seeder
             $webPermCreateBooks,
             $webPermEditBooks,
             $webPermDeleteBooks,
+            $webPermViewWebContent, // Assign new permissions
+            $webPermCreateWebContent,
+            $webPermEditWebContent,
+            $webPermDeleteWebContent,
         ]);
 
         // Permissions for 'admins' guard (for Admin model)
-        // These will have the same names but different guard
         $adminPermViewBooks = Permission::firstOrCreate(['name' => 'view books', 'guard_name' => 'admins']);
         $adminPermCreateBooks = Permission::firstOrCreate(['name' => 'create books', 'guard_name' => 'admins']);
         $adminPermEditBooks = Permission::firstOrCreate(['name' => 'edit books', 'guard_name' => 'admins']);
@@ -44,6 +53,12 @@ class RolesAndPermissionsSeeder extends Seeder
         $adminPermManageUsers = Permission::firstOrCreate(['name' => 'manage users', 'guard_name' => 'admins']);
         $adminPermManageRoles = Permission::firstOrCreate(['name' => 'manage roles', 'guard_name' => 'admins']);
         $adminPermAssignRoles = Permission::firstOrCreate(['name' => 'assign roles', 'guard_name' => 'admins']);
+
+        // New WebContent permissions for 'admins' guard
+        $adminPermViewWebContent = Permission::firstOrCreate(['name' => 'view web_content', 'guard_name' => 'admins']);
+        $adminPermCreateWebContent = Permission::firstOrCreate(['name' => 'create web_content', 'guard_name' => 'admins']);
+        $adminPermEditWebContent = Permission::firstOrCreate(['name' => 'edit web_content', 'guard_name' => 'admins']);
+        $adminPermDeleteWebContent = Permission::firstOrCreate(['name' => 'delete web_content', 'guard_name' => 'admins']);
 
         // Admin Role (admins guard)
         $adminRole = Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'admins']);
@@ -56,6 +71,10 @@ class RolesAndPermissionsSeeder extends Seeder
             $adminPermManageUsers,
             $adminPermManageRoles,
             $adminPermAssignRoles,
+            $adminPermViewWebContent, // Add new permissions
+            $adminPermCreateWebContent,
+            $adminPermEditWebContent,
+            $adminPermDeleteWebContent,
         ];
         $adminRole->syncPermissions($adminPermissions);
     }
