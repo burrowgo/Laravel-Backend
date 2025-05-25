@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable; // Important: extend Authenticatable
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens; // Import and use Passport trait
+use Spatie\Permission\Traits\HasRoles; // Import HasRoles
 
 class Admin extends Authenticatable // Extend Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable; // Use all three traits
+    use HasApiTokens, HasFactory, Notifiable, HasRoles; // Add HasRoles here
 
     /**
      * The attributes that are mass assignable.
