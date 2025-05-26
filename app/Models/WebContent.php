@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class WebContent extends Model
 {
@@ -27,32 +26,6 @@ class WebContent extends Model
     protected $attributes = [
         'status' => 'draft', // Default status
     ];
-
-    /**
-     * Boot the model.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (empty($model->slug)) {
-                $model->slug = Str::slug($model->title);
-            }
-            // Ensure status is one of the allowed values, defaulting to 'draft'
-            if (!in_array($model->status, ['draft', 'published'])) {
-                $model->status = 'draft';
-            }
-        });
-
-        static::updating(function ($model) {
-            // Ensure status is one of the allowed values when updating
-            if ($model->isDirty('status') && !in_array($model->status, ['draft', 'published'])) {
-                // Revert to original status or set to default if somehow invalid
-                $model->status = $model->getOriginal('status', 'draft');
-             }
-        });
-    }
 
     // It's good practice to ensure 'slug' is unique, typically handled by a validation rule
     // or a database unique constraint. For status, while a default is set,
